@@ -25,6 +25,14 @@
     padding: 2% 3% 2% 3%;
 }
 
+.view-button {
+    border-radius: 10%;
+    background-color: #563D7c;
+    color: pink;
+    margin: 2% 3% 2% 3%;
+    padding: 2%;
+}
+
 .card-back {
     padding: 2% 2% 2% 2%;
 }

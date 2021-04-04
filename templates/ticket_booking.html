@@ -20,20 +20,22 @@
     <div class=" container-fluid backdrop-description">
         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non modi blanditiis iusto, ratione sapiente distinctio dolorum consequatur fuga ullam quos repudiandae, obcaecati, consequuntur corrupti officiis voluptates molestias ea quo repellendus!</p> -->
         <div class="movie-poster">
-            <img src="{{ url_for('static', filename='imgs/black_panther.png')}}" alt="" class="movie-poster img-fluid">
+            <img src="static/imgs/{{ content['image'] }}" alt="" class="movie-poster img-fluid">
         </div>
         <div class="movie-description">
-            <h2 class="movie-name">Black Panther</h2>
-            <h3 class="movie-rating">Rating: </h3>
-            <form action="#" method="POST">
+            <h2 class="movie-name">{{ content["name"]}}</h2>
+            <h3 class="movie-rating">Rating:{{ content["rating"]}}</h3>
+            <form action="/ticket_booking.html" method="POST">
                 <label for="quantity">Enter the number of seats Required:</label>
                 <input type="number" id="quantity" name="quantity" min="1" max="20">
-                <br>
-                <button>submit</button>
+                <input type="hidden" id="theatre_name" name="theatre_name" value="{{ theatre_name }}">
+                <input type="hidden" id="movie_time" name="movie_time" value="{{ movie_time }}">
+                <input type="hidden" id="movie" name="movie" value="{{ content['name']}}">
+                <button type="submit" name="submit" class="view-button">Book Now</button>
             </form>
             <br>
             <br>
-            <p> You have been alloted</p>
+            <p> {{ msg }}</p>
         </div>
     </div>
 

@@ -22,17 +22,20 @@
         <!--Grid row-->
         <div class="row">
             <!--Grid column-->
-            {% for value in content %}
+            {% for temp_movie in content %}
             <!--Grid column-->
             <div class="col-lg-3 col-md-6 mb-4 card-back">
 
                 <!--Image-->
 
                 <div class="view overlay z-depth-1-half movie-card">
-                    <img src="static/imgs/{{ value['image'] }}" class="img-fluid" alt="">
-                    <h3 class="movie-name">{{ value["name"] }}</h3>
-                    <h6 class="movie-rating">Rating : {{ value["rating"] }}</h6>
-                    <button type="submit">view</button>
+                    <img src="static/imgs/{{ temp_movie['image'] }}" class="img-fluid" alt="">
+                    <h3 class="movie-name">{{ temp_movie["name"] }}</h3>
+                    <h6 class="movie-rating">Rating : {{ temp_movie["rating"] }}</h6>
+                    <form action="/about_movie.html" method="POST" role="form">
+                        <input type="hidden" id="movie" name="movie" value="{{temp_movie['name']}}">
+                        <button type="submit" name="submit" class="view-button">view</button>
+                    </form>
                 </div>
 
             </div>

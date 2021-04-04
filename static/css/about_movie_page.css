@@ -46,6 +46,14 @@
     }
 }
 
+.view-button {
+    border-radius: 10%;
+    background-color: #563D7c;
+    color: pink;
+    /* margin: 2% 3% 2% 3%; */
+    padding: 2%;
+}
+
 .log-in-but {
     list-style-type: none;
     padding-right: 2%;
