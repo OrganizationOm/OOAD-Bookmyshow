@@ -1,0 +1,69 @@
+.backdrop-description {
+    background-color: #D3D3D3;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.body-color {
+    background-color: #D3D3D3;
+}
+
+.total-segment {
+    /* background-color: blue; */
+    padding: 3%;
+    padding-bottom: 5%;
+    border: 2px solid black;
+    color: black;
+    background-color: #D3D3D3;
+}
+
+.segment {
+    padding: 2%;
+    padding-bottom: 10%;
+    background-color: #D3D3D3;
+    /* background-color: pink; */
+}
+
+.segment-left {
+    float: left;
+    /* background-color: blueviolet; */
+    width: 30%;
+    padding-top: 2%;
+    border-right: 1px solid black;
+    background-color: #D3D3D3;
+}
+
+.segment-right {
+    float: right;
+    padding: 0%;
+    padding-top: 2%;
+    padding-left: 3%;
+    /* background-color: yellow; */
+    width: 70%;
+    background-color: #D3D3D3;
+    ;
+}
+
+.timeslot {
+    display: inline-block;
+    padding-right: 2%;
+    color: black;
+}
+
+.log-in-but {
+    list-style-type: none;
+    padding-right: 2%;
+}
+
+.navbar-color {
+    background-color: #563D7c;
+}
+
+.navbar-text {
+    color: pink !important;
+    border: 0px solid white !important;
+}
+
+.navbar-text:hover {
+    background-color: #563D7c !important;
+}

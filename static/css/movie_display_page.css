@@ -1,0 +1,48 @@
+.main-page {
+    padding: 5% 10% 5% 10%;
+    background-color: #D3D3D3;
+}
+
+.body-color {
+    background-color: #D3D3D3;
+}
+
+.movie-card {
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid black;
+}
+
+.movie-name {
+    font-family: 'Montserrat';
+    font-size: 2.5em;
+    padding: 2% 3% 2% 3%;
+}
+
+.movie-rating {
+    font-family: 'Montserrat';
+    font-size: 1.5em;
+    padding: 2% 3% 2% 3%;
+}
+
+.card-back {
+    padding: 2% 2% 2% 2%;
+}
+
+.log-in-but {
+    list-style-type: none;
+    padding-right: 2%;
+}
+
+.navbar-color {
+    background-color: #563D7c;
+}
+
+.navbar-text {
+    color: pink !important;
+    border: 0px solid white !important;
+}
+
+.navbar-text:hover {
+    background-color: #563D7c !important;
+}
