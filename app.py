@@ -6,22 +6,11 @@ app.secret_key="abc"
 
 
 class Movie_class:
-    # name=""
-    # rating=""
-    # image=""
-    # description=""
     def __init__(self, name="", rating="",description="",image=""):
         self.name=name
         self.rating=rating
         self.image=image
         self.description=description
-    
-    def update_movie(self,name,rating,description,image):
-        self.name=name
-        self.rating=rating
-        self.image=image
-        self.description=description
-
 
     def movie_object_list(self):
         f = open('movie_file.json')
@@ -40,13 +29,35 @@ class Movie_class:
 
 
 class Theatre_class:
-    name = ""
-    timings = [] 
-    movie_name = ""
-    def __init__(self, name, timings,movie_name):
+    def __init__(self, name="", timings="",movie_name=""):
         self.name=name
         self.timings=timings
         self.movie_name=movie_name
+
+    def theatre_object_list(self,movie_name):
+        f = open('theatre_file.json')
+        theatre_data=json.load(f)
+        theatre_list=[]
+        for theatre in theatre_data:
+            theatre_list.append(Theatre_class(theatre,theatre_data[theatre],movie_name))
+        return theatre_list
+
+"""
+Things to be added:-
+    User class with:-
+        check_login() #should be done at home() after clicking view button
+        check_register() #should be done at home() after clicking view button
+        add_user() #should be done if both of the above fail
+        display_info() #never really displaying info but still
+        update_booked_movie() #to be done in the ticket_booking() to update chosen movie with number of seats
+
+    Admin Class with:-
+        add_movie()
+        remove_movie()
+        add_theatre()
+        remove_theatre()
+        will have separate html file so separate app.routes
+"""
 
     
 
@@ -72,16 +83,11 @@ def about_movie():
 
 @app.route("/theatre.html",methods=["POST","GET"])
 def theatre():
-    movie_data={}
-    theatre_data={}
     theatre_list=[]
     if request.method == "POST":
-        movie_data=request.form['movie']
-        f = open('theatre_file.json')
-        theatre_data=json.load(f)
-        for theatre in theatre_data:
-            theatre_list.append(Theatre_class(theatre,theatre_data[theatre],movie_data))
-        # print(theatre_data["Inox Multiplex"]
+        movie_name=request.form['movie']
+        theate_obj = Theatre_class()
+        theatre_list=theate_obj.theatre_object_list(movie_name)
     return render_template("theatre.html", theatres=theatre_list)
 
 @app.route("/ticket_booking.html",methods=["POST","GET"])
@@ -91,25 +97,27 @@ def ticket_booking():
     movie_time=""
     message=""
     if request.method == "POST":
-        movie_data=request.form['movie']
+        movie_name=request.form['movie']
         theatre_name=request.form['theatre_name']
         movie_time=request.form['movie_time']
         quantity=request.form['quantity']
-        f = open('movie_file.json')
-        data=json.load(f)
-        movie_data=data[movie_data]
+        movie_info=Movie_class()
+        movie_data=movie_info.get_movie_info(movie_name)
         if(quantity=="0"):
             message=""
         else:
             message="You have successfully booked "+quantity+" seats for the movie "+movie_data["name"]+" at "+movie_time+", "+theatre_name
-        print("this is the "+quantity)
-        print(movie_data)
-        print(theatre_name)
-        print(movie_time)
-
-    
     return render_template("ticket_booking.html", content=movie_data, theatre_name=theatre_name, movie_time=movie_time, msg=message)
 
+
+@app.route("/login.html",methods=["POST","GET"])
+def login():
+    return render_template("login.html")
+
+
+@app.route("/register.html",methods=["POST","GET"])
+def register():
+    return render_template("register.html")
 
 if __name__=="__main__":
 	app.run(debug = True)
