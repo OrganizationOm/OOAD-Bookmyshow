@@ -22,15 +22,15 @@
             {% for theatre_name in theatres %}
             <div class="segment">
                 <div class="segment-left">
-                    <h3 class="time">{{ theatre_name }}</h3>
+                    <h3 class="time">{{ theatre_name.name }}</h3>
                 </div>
                 <div class="segment-right">
-                    {% for timeslot in theatres[theatre_name] %}
+                    {% for timeslot in theatre_name.timings %}
                     <form action="/ticket_booking.html" method="POST" class="form_inline">
                         <button class="timeslot" type="submit">{{ timeslot }} </button>
-                        <input type="hidden" id="theatre_name" name="theatre_name" value="{{ theatre_name }}">
+                        <input type="hidden" id="theatre_name" name="theatre_name" value="{{ theatre_name.name }}">
                         <input type="hidden" id="movie_time" name="movie_time" value="{{ timeslot }}">
-                        <input type="hidden" id="movie" name="movie" value="{{ content }}">
+                        <input type="hidden" id="movie" name="movie" value="{{ theatre_name.movie_name }}">
                         <input type="hidden" id="quantity" name="quantity" value="0">
                         <!-- <button type="submit" name="submit" class="view-button">{{ timeslot }}</button> -->
                     </form>
