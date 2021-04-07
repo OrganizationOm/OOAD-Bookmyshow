@@ -71,21 +71,3 @@
     display: inline-block;
     width: 20%;
 }
-
-.log-in-but {
-    list-style-type: none;
-    padding-right: 2%;
-}
-
-.navbar-color {
-    background-color: #563D7c;
-}
-
-.navbar-text {
-    color: pink !important;
-    border: 0px solid white !important;
-}
-
-.navbar-text:hover {
-    background-color: #563D7c !important;
-}
