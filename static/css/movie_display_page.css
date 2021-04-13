@@ -1,5 +1,5 @@
 .main-page {
-    padding: 5% 10% 5% 10%;
+    padding: 2% 10% 5% 10%;
     background-color: #D3D3D3;
 }
 
@@ -11,6 +11,18 @@
     background-color: whitesmoke;
     color: black;
     border: 2px solid black;
+    object-fit: cover;
+}
+
+.img-display {
+    /* width: 100%; */
+    height: auto;
+    max-width: 100%;
+    /* height: 25%; */
+    /* width: 100%;
+    height: 300px; */
+    /* height: 25%; */
+    /* height: 75%; */
 }
 
 .movie-name {
@@ -35,4 +47,5 @@
 
 .card-back {
     padding: 2% 2% 2% 2%;
+    height: 10%;
 }

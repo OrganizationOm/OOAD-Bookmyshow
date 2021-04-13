@@ -6,11 +6,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/theatre_page.css')}}" id="css-link">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/movie_display_page.css')}}" id="css-link">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/macro.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
     <title>Bookmshow</title>
 </head>
 
@@ -18,33 +19,39 @@
 
     {{ navbar2() }}
 
-    <div class=" container-fluid backdrop-description">
-        <div class="total-segment">
-            {% for theatre_name in theatres %}
-            <div class="segment">
-                <div class="segment-left">
-                    <h3 class="time">{{ theatre_name.name }}</h3>
-                </div>
-                <div class="segment-right">
-                    {% for timeslot in theatre_name.timings %}
-                    <form action="/seating.html" method="POST" class="form_inline">
-                        <button class="timeslot" type="submit">{{ timeslot }} </button>
-                        <input type="hidden" id="theatre_name" name="theatre_name" value="{{ theatre_name.name }}">
-                        <input type="hidden" id="movie_time" name="movie_time" value="{{ timeslot }}">
-                        <input type="hidden" id="movie" name="movie" value="{{ theatre_name.movie_name }}">
-                        <!-- <button type="submit" name="submit" class="view-button">{{ timeslot }}</button> -->
+    <div class="container-fluid main-page">
+        <!--Grid row-->
+        <div class="row">
+            <!--Grid column-->
+            {% for temp_movie in content %}
+            <!--Grid column-->
+            <div class="col-lg-3 col-md-6 mb-4 card-back">
+
+                <!--Image-->
+
+                <div class="view overlay z-depth-1-half movie-card">
+                    <img src="static/imgs/{{ temp_movie.image }}" class="img-display" alt="">
+                    <h3 class="movie-name">{{ temp_movie.name }}</h3>
+                    <h6 class="movie-rating">Rating : {{ temp_movie.rating }}</h6>
+                    <form action="/about_movie.html" method="POST" role="form">
+                        <input type="hidden" id="movie" name="movie" value="{{temp_movie.name}}">
+                        <button type="submit" name="submit" class="view-button">view</button>
                     </form>
-                    {% endfor %}
                 </div>
+
             </div>
+            <!--Grid column-->
             {% endfor %}
         </div>
+        <!--Grid row-->
+
     </div>
-
-
+    {{login_status}}
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 </html>

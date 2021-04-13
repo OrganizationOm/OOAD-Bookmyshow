@@ -42,12 +42,69 @@ class Theatre_class:
             theatre_list.append(Theatre_class(theatre,theatre_data[theatre],movie_name))
         return theatre_list
 
+
+class User_class:
+    def __init__(self,user_name="",password="",email=""):
+        self.user_name=user_name
+        self.password=password
+        self.email=email
+    
+    def check_login(self):
+        if "username" in session:
+            return True
+        else:
+            return False
+    
+    def validate_login(self,username,password):
+        f = open('user_file.json')
+        user_data=json.load(f)
+        if(username not in user_data):
+            return False
+        if(user_data[username]["password"]==password):
+            return True
+
+    def register_user(self,username,password,email,phone_no):
+        f = open('user_file.json')
+        user_data=json.load(f)
+        if(username in user_data):
+            return False
+        user_data[username]={"username":username,"password":password,"email":email,"phone_no":phone_no}   
+        with open("user_file.json", "w") as write_file:
+            json.dump(user_data, write_file)
+        return True
+
+
+    def logout_user(self):
+        session.pop('username',None)
+
+    
+    def book_movie(self, movie_name,movie_time,theatre_name,number_tickets,price,seats_no):
+        self.movie_name=movie_name
+        self.theatre_name=theatre_name
+        self.movie_time=movie_time
+        self.number_tickets=number_tickets
+        self.price=price
+        self.seats_no=seats_no
+        f = open('user_history_file.json')
+        user_data_history=json.load(f)
+        if session["username"] in user_data_history:
+            user_data_history[session["username"]].append(movie_name)
+        else:
+            user_data_history[session["username"]]=[]
+            user_data_history[session["username"]].append(movie_name)
+        with open("user_history_file.json","w") as write_file:
+            json.dump(user_data_history,write_file)
+
+
+
+        
+
+    
+
+
 """
 Things to be added:-
     User class with:-
-        check_login() #should be done at home() after clicking view button
-        check_register() #should be done at home() after clicking view button
-        add_user() #should be done if both of the above fail
         display_info() #never really displaying info but still
         update_booked_movie() #to be done in the ticket_booking() to update chosen movie with number of seats
 
@@ -65,14 +122,26 @@ Things to be added:-
 
 @app.route("/",methods=["POST","GET"])
 def home():
+    user_obj=User_class()
+    user_obj.logout_user()
     get_movies=Movie_class()
     movie_list=get_movies.movie_object_list()
     return render_template("movie_display.html", content = movie_list)
+
+@app.route("/movie_display_logged_in.html",methods=["POST","GET"])
+def movie_display_logged_in():
+    get_movies=Movie_class()
+    movie_list=get_movies.movie_object_list()
+    return render_template("movie_display_logged_in.html", content = movie_list)
+
 
 @app.route("/about_movie.html",methods=["POST","GET"])
 def about_movie():
     movie_data={}
     if request.method == "POST":
+        user_obj=User_class()
+        if(user_obj.check_login()==False):
+            return redirect(url_for("home"))
         movie_name=request.form['movie']
         movie_info=Movie_class()
         movie_data=movie_info.get_movie_info(movie_name)
@@ -90,34 +159,67 @@ def theatre():
         theatre_list=theate_obj.theatre_object_list(movie_name)
     return render_template("theatre.html", theatres=theatre_list)
 
+@app.route("/seating.html",methods=["POST","GET"])
+def seating():
+    if request.method == "POST":
+        movie_name=request.form['movie']
+        theatre_name=request.form['theatre_name']
+        movie_time=request.form['movie_time']
+    return render_template("seating.html", movie_name=movie_name, theatre_name=theatre_name, movie_time=movie_time)
+
 @app.route("/ticket_booking.html",methods=["POST","GET"])
 def ticket_booking():
     movie_data=""
     theatre_name=""
     movie_time=""
-    message=""
     if request.method == "POST":
-        movie_name=request.form['movie']
-        theatre_name=request.form['theatre_name']
-        movie_time=request.form['movie_time']
-        quantity=request.form['quantity']
+        number = request.form["number"]
+        cost = request.form["cost"]
+        movie_name = request.form["movie_name"]
+        movie_time = request.form["movie_time"]
+        theatre_name = request.form["theatre_name"]
+        seatsselected = request.form["seatsselected"]
         movie_info=Movie_class()
         movie_data=movie_info.get_movie_info(movie_name)
-        if(quantity=="0"):
-            message=""
-        else:
-            message="You have successfully booked "+quantity+" seats for the movie "+movie_data["name"]+" at "+movie_time+", "+theatre_name
-    return render_template("ticket_booking.html", content=movie_data, theatre_name=theatre_name, movie_time=movie_time, msg=message)
+        user=User_class()
+        user.book_movie(movie_name,movie_time,theatre_name,number,cost,seatsselected)
+        return render_template("ticket_booking.html", content=movie_data, theatre_name=theatre_name, movie_time=movie_time, seatsselected=seatsselected, cost=cost, number=number)
 
 
 @app.route("/login.html",methods=["POST","GET"])
 def login():
-    return render_template("login.html")
+    message=""
+    if request.method=="POST":
+        username=request.form["username"]
+        password=request.form["password"]
+        user_obj=User_class()
+        check=user_obj.validate_login(username,password)
+        if(check):
+            session["username"]=username
+            return redirect(url_for("movie_display_logged_in"))
+        else:
+            message="Invalid"
+
+    return render_template("login.html",msg=message)
 
 
 @app.route("/register.html",methods=["POST","GET"])
 def register():
-    return render_template("register.html")
+    message=""
+    if request.method=="POST":
+        username=request.form["username"]
+        password=request.form["password"]
+        email=request.form["email"]
+        phone_no=request.form["phNo"]
+        user_obj=User_class()
+        check=user_obj.register_user(username,password,email,phone_no)
+        if(check):
+            session["username"]=username
+            return redirect(url_for("movie_display_logged_in"))
+        else:
+            message="Already registered"
+
+    return render_template("register.html",msg=message)
 
 if __name__=="__main__":
 	app.run(debug = True)

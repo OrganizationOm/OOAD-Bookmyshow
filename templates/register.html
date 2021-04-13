@@ -21,13 +21,14 @@
         <div class="centering-div">
             <div class="login-div">
                 <h2>Register</h2>
-                <form action="#">
+                <form action="{{url_for('register')}}" method="POST">
                     <input type="username" placeholder="Enter the username" name="username" class="input-types">
                     <input type="password" placeholder="Enter the password" name="password" class="input-types">
                     <input type="email" placeholder="Enter the Email" name="email" class="input-types">
                     <input type="number" placeholder="Enter your phone number" name="phNo" class="input-types">
                     <button class="login-button">Register</button>
                 </form>
+                {{msg}}
             </div>
         </div>
         </div>

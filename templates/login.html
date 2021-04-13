@@ -17,18 +17,19 @@
 
 
 
-    <divc class="container-fluid ">
+    <div class="container-fluid ">
         <div class="centering-div">
             <div class="login-div">
                 <h2>Login</h2>
-                <form action="#">
+                <form action="{{url_for('login')}}" method="POST">
                     <input type="username" placeholder="Enter the username" name="username" class="input-types">
                     <input type="password" placeholder="Enter the password" name="password" class="input-types">
                     <button class="login-button">Login</button>
                 </form>
+                {{msg}}
             </div>
         </div>
-        </div>
+    </div>
 
 
 </body>

@@ -30,7 +30,7 @@
                 <!--Image-->
 
                 <div class="view overlay z-depth-1-half movie-card">
-                    <img src="static/imgs/{{ temp_movie.image }}" class="img-fluid" alt="">
+                    <img src="static/imgs/{{ temp_movie.image }}" class="img-display" alt="">
                     <h3 class="movie-name">{{ temp_movie.name }}</h3>
                     <h6 class="movie-rating">Rating : {{ temp_movie.rating }}</h6>
                     <form action="/about_movie.html" method="POST" role="form">
@@ -46,6 +46,7 @@
         <!--Grid row-->
 
     </div>
+    {{login_status}}
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
