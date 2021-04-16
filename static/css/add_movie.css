@@ -1,0 +1,66 @@
+.body-color {
+    background-color: #D3D3D3;
+}
+
+.centering-div {
+    /* background-color: #563D7c; */
+    padding: 5% 20% 5% 20%;
+}
+
+.login-div {
+    padding: 5%;
+    background-color: #563D7c;
+    border-radius: 5%;
+}
+
+h2 {
+    text-align: center;
+    color: pink !important;
+}
+
+.login-button {
+    border-radius: 10%;
+    background-color: #D3D3D3;
+    color: black;
+    margin: 2% 35% 2% 35%;
+    padding: 2%;
+    border-color: pink;
+    width: 30%;
+}
+
+.input-types {
+    display: block;
+    padding: 2%;
+    background-color: #D3D3D3;
+    color: black;
+    border: 5px solid pink;
+    width: 80%;
+    margin: 5% 10% 5% 10%;
+    border-radius: 5%;
+}
+
+#desc {
+    padding-left: 2%;
+    background-color: #D3D3D3;
+    color: black;
+    border: 5px solid pink;
+    width: 80%;
+    margin: 5% 10% 5% 10%;
+    border-radius: 5%;
+}
+
+.view-button {
+    border-radius: 10%;
+    background-color: #563D7c;
+    color: pink;
+    margin: 0% 10% 5% 10%;
+    padding: 2%;
+}
+
+.view-button2 {
+    border-radius: 10%;
+    background-color: #563D7c;
+    color: pink;
+    margin: 3% 10% 1% 10%;
+    padding: 2%;
+}

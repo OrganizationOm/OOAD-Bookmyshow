@@ -6,6 +6,8 @@
 .movie-poster {
     float: left;
     padding: 5%;
+    width: 400px;
+    height: 600px;
 }
 
 .body-color {
