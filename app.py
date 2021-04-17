@@ -163,6 +163,28 @@ class Admin_Class:
         with open("movie_file.json", "w") as write_file:
             json.dump(movie_data, write_file)
         return True
+
+    def add_theatre(self,theatre_name,timings):
+        f=open("theatre_file.json")
+        theatre_data=json.load(f)
+        if theatre_name in theatre_data:
+            return False
+        theatre_data[theatre_name]=timings
+        # filename = secure_filename(file.filename)
+        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        with open("theatre_file.json", "w") as write_file:
+            json.dump(theatre_data, write_file)
+        return True
+
+    def delete_theatre(self,theatre_name):
+        f=open("theatre_file.json")
+        theatre_data=json.load(f)
+        if theatre_name not in theatre_data:
+            return False
+        theatre_data.pop(theatre_name, None)
+        with open("theatre_file.json", "w") as write_file:
+            json.dump(theatre_data, write_file)
+        return True
         
         
         
@@ -334,6 +356,32 @@ def add_movie():
         return redirect(url_for('movie_display_admin_logged_in'))
     else:
         return render_template("add_movie.html",msg="Movie already added")
+
+@app.route("/add_theatre.html",methods=["POST","GET"])
+def add_theatre():
+    if request.method!="POST":
+        return render_template("add_theatre.html")
+    theatre_name=request.form["theatre_name"]
+    timings=request.form["timings"]
+    timings=timings.split(', ')
+    admin_obj=Admin_Class()
+    check=admin_obj.add_theatre(theatre_name,timings)
+    if(check):
+        return redirect(url_for('movie_display_admin_logged_in'))
+    else:
+        return render_template("add_theatre.html",msg="Movie already added")
+
+@app.route("/delete_theatre",methods=["POST","GET"])
+def delete_theatre():
+    if request.method!="POST":
+        return render_template("delete_theatre.html")
+    theatre_name=request.form["theatre_name"]
+    admin_obj=Admin_Class()
+    check=admin_obj.delete_theatre(theatre_name)
+    if(check):
+        return redirect(url_for('movie_display_admin_logged_in'))
+    else:
+        return render_template("delete_theatre.html",msg="No such theatre exists")
 
 if __name__=="__main__":
 	app.run(debug = True)
