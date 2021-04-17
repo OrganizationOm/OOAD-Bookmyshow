@@ -186,6 +186,18 @@ class Admin_Class:
             json.dump(theatre_data, write_file)
         return True
         
+    def change_timings(self,theatre_name,timings):
+        f=open("theatre_file.json")
+        theatre_data=json.load(f)
+        if theatre_name not in theatre_data:
+            return False
+        theatre_data.pop(theatre_name, None)
+        theatre_data[theatre_name]=timings
+        # filename = secure_filename(file.filename)
+        # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        with open("theatre_file.json", "w") as write_file:
+            json.dump(theatre_data, write_file)
+        return True
         
         
 
@@ -382,6 +394,21 @@ def delete_theatre():
         return redirect(url_for('movie_display_admin_logged_in'))
     else:
         return render_template("delete_theatre.html",msg="No such theatre exists")
+
+@app.route("/change_timings.html",methods=["POST","GET"])
+def change_timings():
+    if request.method!="POST":
+        return render_template("change_timings.html")
+    theatre_name=request.form["theatre_name"]
+    timings=request.form["timings"]
+    timings=timings.split(', ')
+    admin_obj=Admin_Class()
+    check=admin_obj.change_timings(theatre_name,timings)
+    if(check):
+        return redirect(url_for('movie_display_admin_logged_in'))
+    else:
+        return render_template("change_timings.html",msg="No such Theatre exists")
+
 
 if __name__=="__main__":
 	app.run(debug = True)
