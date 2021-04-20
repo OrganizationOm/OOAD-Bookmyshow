@@ -82,5 +82,11 @@ function sendtoticket() {
   const price = document.getElementById('price').innerHTML;
   document.getElementById("cost").value = price;
   document.getElementById("number").value = count;
-  document.getElementById("form1").submit();
+  if(count > 0) {
+    document.getElementById("form1").submit();
+  }
+  else {
+    window.alert("Please select atleast 1 seat!!");
+    return false;
+  }
 }

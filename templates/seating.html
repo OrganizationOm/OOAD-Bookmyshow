@@ -118,13 +118,14 @@
             You have selected <span id="count">0</span> seats for a price of Rs.<span id="price">0</span>
         </p>
 
-        <form action="/ticket_booking.html" method="POST" id="form1" onclick="sendtoticket()">
+        <form action="/ticket_booking.html" method="POST" id="form1" onclick="return sendtoticket()">
             <input type="hidden" name="movie_name" value="{{movie_name}}">
             <input type="hidden" name="theatre_name" value="{{theatre_name}}">
             <input type="hidden" name="movie_time" value="{{movie_time}}">
             <input type="hidden" name="number" id="number">
             <input type="hidden" name="cost" id="cost">
             <input type="hidden" name="seatsselected" id="seatsselected" value="">
+            <input type="hidden" name="movie_confirmation" value="notyet">
             <button class="view-button"> View </button>
         </form>
     </div>

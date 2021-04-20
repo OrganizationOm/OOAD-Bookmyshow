@@ -1,19 +1,15 @@
-.boxed {
-    border: 5px solid black;
-}
-
 .backdrop-description {
     background-color: #D3D3D3;
     overflow: hidden;
-    padding: 5% 10% 5% 10%;
+    /*padding: 5% 10% 5% 10%;*/
 }
 
 .movie-poster {
     float: left;
     padding-left: 25%;
-    padding-top: 5%;
-    width: 550px;
-    height: 700px;
+    padding-top: 2%;
+    width: 750px;
+    height: 1000px;
     /* width: 400px;
     height: 600px; */
 }
@@ -22,7 +18,7 @@
     color: black;
     float: right;
     /*width: 50%;*/
-    padding: 6%;
+    padding: 3%;
     padding-right: 25%;
     /*padding-top: 25%;*/
 }
@@ -34,9 +30,18 @@
 
 .under-poster {
     float: left;
-    padding-top: 25%;
-    padding-bottom: 10%;
-    padding-left: 31%;
+    /*padding-top: 1%;*/
+    clear: right;
+    padding-top: 1%;
+    padding-left: 25%;
+}
+
+.view-button {
+    border-radius: 10%;
+    background-color: #563D7c;
+    color: pink;
+    margin: 2% 3% 2% 3%;
+    padding: 2%;
 }
 
 @media screen and (max-width: 1200px) {

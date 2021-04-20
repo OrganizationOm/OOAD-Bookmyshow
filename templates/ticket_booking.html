@@ -19,27 +19,47 @@
     {{ navbar2() }}
     <div class=" container-fluid backdrop-description">
         <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non modi blanditiis iusto, ratione sapiente distinctio dolorum consequatur fuga ullam quos repudiandae, obcaecati, consequuntur corrupti officiis voluptates molestias ea quo repellendus!</p> -->
-        <div class="boxed">
-            <div class="movie-poster">
-                <img src="static/imgs/{{ content['image'] }}" alt="" class="movie-poster img-fluid">
-            </div>
-            <div class="movie-description">
-                <h3>{{theatre_name}}</h3>
-                <h3>{{movie_time}}</h3>
-                <br>
-                <h3 class="dual"> Amount paid <br> {{cost}}</h3>
-                <h3 class="dual">Tickets <br> {{number}}</h3>
-                <br>
-                <br>
-                <h5>Seats</h5>
-                <h1>{{seatsselected}}</h1>
-            </div>
+        <div class="movie-poster">
+            <img src="static/imgs/{{ content['image'] }}" alt="" class="movie-poster img-fluid">
             <div class="under-poster">
-                <h2 class="movie-name">{{ content["name"]}}</h2>
-                <h3 class="movie-rating">Rating:{{ content["rating"]}}</h3>
-            </div>
+            <h2 class="movie-name">{{ content["name"]}}</h2>
+            <h3 class="movie-rating">Rating:{{ content["rating"]}}</h3>
         </div>
+        </div>
+        <div class="movie-description">
+            <h3>{{theatre_name}}</h3>
+            <h3>{{movie_time}}</h3>
+            <br>
+            <h3 class="dual"> Amount paid <br> {{cost}}</h3>
+            <h3 class="dual">Tickets <br> {{number}}</h3>
+            <br>
+            <br>
+            <h5>Seats</h5>
+            <h1>{{seatsselected}}</h1>
+            <br>
+            <br>
+            {% if flag == 0 %}
+            <form action="/ticket_booking.html" method="POST" role="form" class="dual">
+            	<input type="hidden" id="movie" name="movie_confirmation" value="no">
+                <button type="submit" name="submit" class="view-button dual">Cancel</button>
+            </form>
+            <form action="/ticket_booking.html" method="POST" role="form" class="dual">
+            	<input type="hidden" id="movie" name="movie_confirmation" value="{{content['name']}}">
+            	<input type="hidden" name="movie_name" value="{{content['name']}}">
+	            <input type="hidden" name="theatre_name" value="{{theatre_name}}">
+	            <input type="hidden" name="movie_time" value="{{movie_time}}">
+	            <input type="hidden" name="number" id="number" value="{{number}}">
+	            <input type="hidden" name="cost" id="cost" value="{{cost}}">
+	            <input type="hidden" name="seatsselected" id="seatsselected" value="{{seatsselected}}">
+                <button type="submit" name="submit" class="view-button dual">Confirm</button>
+            </form>
+            {% endif %}
+            {{message}}
+            
+        </div>
+
     </div>
+
 
 
 </body>

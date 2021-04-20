@@ -290,18 +290,41 @@ def ticket_booking():
     movie_data=""
     theatre_name=""
     movie_time=""
+    msg=""
+    flag = 0
     if request.method == "POST":
-        number = request.form["number"]
-        cost = request.form["cost"]
-        movie_name = request.form["movie_name"]
-        movie_time = request.form["movie_time"]
-        theatre_name = request.form["theatre_name"]
-        seatsselected = request.form["seatsselected"]
-        movie_info=Movie_class()
-        movie_data=movie_info.get_movie_info(movie_name)
-        user=User_class()
-        user.book_movie(movie_name,movie_time,theatre_name,number,cost,seatsselected)
-        return render_template("ticket_booking.html", content=movie_data, theatre_name=theatre_name, movie_time=movie_time, seatsselected=seatsselected, cost=cost, number=number)
+        # number = request.form["number"]
+        # cost = request.form["cost"]
+        # movie_name = request.form["movie_name"]
+        # movie_time = request.form["movie_time"]
+        # theatre_name = request.form["theatre_name"]
+        # seatsselected = request.form["seatsselected"]
+        movieconfirmation = request.form["movie_confirmation"]
+        if(movieconfirmation == "no"):
+            return redirect(url_for('movie_display_logged_in'))
+        elif(movieconfirmation == "notyet"):
+            number = request.form["number"]
+            cost = request.form["cost"]
+            movie_name = request.form["movie_name"]
+            movie_time = request.form["movie_time"]
+            theatre_name = request.form["theatre_name"]
+            seatsselected = request.form["seatsselected"]
+            movie_info=Movie_class()
+            movie_data=movie_info.get_movie_info(movie_name)
+        else:
+            flag = 1
+            number = request.form["number"]
+            cost = request.form["cost"]
+            movie_name = request.form["movie_name"]
+            movie_time = request.form["movie_time"]
+            theatre_name = request.form["theatre_name"]
+            seatsselected = request.form["seatsselected"]
+            movie_info=Movie_class()
+            movie_data=movie_info.get_movie_info(movie_name)
+            msg = "Your tickets have successfully been Booked!"
+            user=User_class()
+            user.book_movie(movie_name,movie_time,theatre_name,number,cost,seatsselected)
+        return render_template("ticket_booking.html", content=movie_data, theatre_name=theatre_name, movie_time=movie_time, seatsselected=seatsselected, cost=cost, number=number, message=msg, flag=flag)
 
 
 @app.route("/login.html",methods=["POST","GET"])
